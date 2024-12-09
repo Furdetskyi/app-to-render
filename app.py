@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_restful import Api
@@ -156,6 +157,7 @@ def delete_product(product_id):
     db.session.commit()
     return jsonify({"message": "Product deleted successfully"})
 
-# Запуск додатку
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Use the port provided by the environment, default to 5000
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host="0.0.0.0", port=port)
